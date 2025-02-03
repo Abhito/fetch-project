@@ -1,8 +1,15 @@
-import "./App.scss";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
-import { AuthProvider, } from "./AuthContext.tsx";
-import { AuthGuard } from "./AuthGuard.tsx";
-import Login from "./pages/Login";
+import './App.scss';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import { AuthProvider } from './AuthContext.tsx';
+import { AuthGuard } from './AuthGuard.tsx';
+import Login from './pages/Login';
+import '@fontsource/roboto/400.css';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -10,24 +17,15 @@ function App() {
       <Router>
         <Routes>
           <Route
-            path="/app/*"
+            path='/home'
             element={
               <AuthGuard>
-                <>
-                  <Route index />
-                </>
+                <Home />
               </AuthGuard>
             }
           />
-          <Route
-            path="/"
-            element={
-              <AuthGuard>
-                <Navigate to="/app/" replace />
-              </AuthGuard>
-            }
-          />
-          <Route path="/login" element={<Login />} />
+          <Route path='/' element={<Navigate to='/home' replace />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </Router>
     </AuthProvider>

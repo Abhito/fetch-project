@@ -1,8 +1,16 @@
-﻿import { createContext, ReactNode, useContext, useState } from "react";
+﻿import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { AxiosError } from 'axios';
+import { ApiService } from './api/ApiService.ts';
 
 type User = {
-  id: string;
-  username: string;
+  name: string;
+  email: string;
 };
 
 type AuthContextType = {
@@ -23,6 +31,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
   };
+
+  function handleErrorResponse(error: AxiosError): Promise<AxiosError> {
+    console.error(`HTTP Error: ${error.message}`, { error });
+    if (error.status === 401 || error.response?.status === 401) {
+      logout();
+    }
+    return Promise.reject(error);
+  }
+
+  useEffect(() => {
+    ApiService.addErrorResponse(handleErrorResponse);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

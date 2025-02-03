@@ -1,0 +1,16 @@
+﻿.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex: 1;
+}
+
+.modalContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: -moz-default-background-color;
+  border-radius: 24px;
+  overflow: hidden;
+}

@@ -1,13 +1,17 @@
-﻿import { FC, ReactNode } from "react";
-import { useAuth } from "./AuthContext.tsx";
-import { Navigate } from "react-router-dom";
+﻿import { FC, ReactNode, useEffect } from 'react';
+import { useAuth } from './AuthContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthGuard: FC<{ children?: ReactNode }> = ({ children }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  useEffect(() => {
+    console.log('authGuard', user);
+    if (!user) {
+      navigate('/login', { replace: true });
+    }
+  }, [user]);
 
-  return children;
+  return !user ? null : children;
 };

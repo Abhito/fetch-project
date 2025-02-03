@@ -1,0 +1,21 @@
+﻿.boxContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  .listContainer {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .bottomPageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }
+}
