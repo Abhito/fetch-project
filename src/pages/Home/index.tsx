@@ -14,6 +14,7 @@ import styles from './styles.module.scss';
 import Masonry from '@mui/lab/Masonry';
 import ImageListHeader from '../../components/ImageListHeader';
 import Pagination from '../../components/Pagination';
+import LogoutHeader from '../../components/LogoutHeader';
 
 type BreakpointOrNull = Breakpoint | null;
 
@@ -76,12 +77,22 @@ export default function Home() {
     }
   }, []);
 
+  const updateBreeds = useCallback((value: string[]) => {
+    setSelectedBreeds(value);
+    setPage(0);
+  }, []);
+
   return (
     <Box className={styles.boxContainer}>
+      <LogoutHeader />
       <Paper
         className={styles.listContainer}
         elevation={4}
-        sx={{ margin: columnMap[width] < 3 ? '0' : '1rem' }}
+        sx={{
+          marginX: columnMap[width] < 3 ? '0' : '1rem',
+          borderRadius: columnMap[width] < 3 ? '0' : '12px',
+          boxSizing: columnMap[width] < 3 ? 'content-box' : 'border-box',
+        }}
       >
         <ImageListHeader
           page={page}
@@ -89,7 +100,7 @@ export default function Home() {
           count={count}
           breeds={dogBreeds}
           selectedBreeds={selectedBreeds}
-          setSelectedBreeds={setSelectedBreeds}
+          setSelectedBreeds={updateBreeds}
           sort={sort}
           setSort={setSort}
           favorites={favorites}

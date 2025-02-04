@@ -1,4 +1,13 @@
-﻿import { Button, createTheme, ThemeProvider, Box, Modal } from '@mui/material';
+﻿import {
+  Button,
+  createTheme,
+  ThemeProvider,
+  Box,
+  Modal,
+  Paper,
+  Typography,
+  Zoom,
+} from '@mui/material';
 import { deepOrange, grey } from '@mui/material/colors';
 import { MatchButtonProps } from './MatchButton.interface.ts';
 import { useCallback, useState } from 'react';
@@ -8,18 +17,17 @@ import { Dog } from '../DogImageItem/DogImageItem.interface.ts';
 import DogImageItem from '../DogImageItem';
 import { useWidth } from '../../pages/Home';
 
-const theme = createTheme({
+const buttonTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           backgroundColor: deepOrange['A400'],
           color: grey['50'],
-          borderRadius: 24,
+          borderRadius: 20,
           border: '1px solid',
-          lineHeight: 1.2,
           textTransform: 'none',
-          height: '50px',
+          height: '40px',
           minWidth: '150px',
           ':disabled': {
             color: deepOrange['A400'],
@@ -52,7 +60,7 @@ export default function MatchButton(props: MatchButtonProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={buttonTheme}>
         <Box className={styles.buttonContainer}>
           <Button disabled={favorites.length < 1} onClick={getMatch}>
             Find Match
@@ -76,12 +84,19 @@ export default function MatchButton(props: MatchButtonProps) {
           sx={{ width: width === 'sm' || width === 'xs' ? '90%' : '50%' }}
         >
           {matchDog ? (
-            <DogImageItem
-              dog={matchDog}
-              onFavorite={() => {}}
-              favorites={[]}
-              hideIcon={true}
-            />
+            <Zoom in={openModal}>
+              <Paper className={styles.imagePaper}>
+                <Typography className={styles.foundText} variant={'h6'}>
+                  Found a match!!!
+                </Typography>
+                <DogImageItem
+                  dog={matchDog}
+                  onFavorite={() => {}}
+                  favorites={[]}
+                  hideIcon={true}
+                />
+              </Paper>
+            </Zoom>
           ) : (
             <></>
           )}

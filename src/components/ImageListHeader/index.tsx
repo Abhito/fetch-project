@@ -5,13 +5,13 @@
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
 } from '@mui/material';
 import { ImageListHeaderProps } from './ImageListHeader.interface.ts';
 import styles from './styles.module.scss';
 import MatchButton from '../MatchButton';
 import Pagination from '../Pagination';
 import { deepOrange } from '@mui/material/colors';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 export default function ImageListHeader(props: ImageListHeaderProps) {
   const {
@@ -47,11 +47,25 @@ export default function ImageListHeader(props: ImageListHeaderProps) {
             }
           }}
           renderInput={params => (
-            <TextField {...params} label='Filter' placeholder={'Breeds'} />
+            <TextField
+              {...params}
+              placeholder={'Breeds'}
+              sx={{
+                '& .MuiIcon-root': { mt: -2 },
+              }}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <>
+                    <FilterListIcon />
+                    {params.InputProps.startAdornment}
+                  </>
+                ),
+              }}
+            />
           )}
           sx={{
             flex: 1,
-            '& .MuiInputLabel-shrink': { color: deepOrange['A400'] },
             '& .MuiOutlinedInput-root': {
               borderRadius: 2,
               '& .MuiOutlinedInput-notchedOutline': {
@@ -65,7 +79,7 @@ export default function ImageListHeader(props: ImageListHeaderProps) {
         />
         <FormControl
           sx={{
-            minWidth: '80px',
+            minWidth: '90px',
             '& .MuiOutlinedInput-root': {
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: deepOrange['A400'],
@@ -76,9 +90,7 @@ export default function ImageListHeader(props: ImageListHeaderProps) {
             },
           }}
         >
-          <InputLabel style={{ color: deepOrange['A400'] }}>Sort</InputLabel>
           <Select
-            label={'Sort'}
             value={sort}
             onChange={event => {
               setSort(event.target.value as 'asc' | 'desc');

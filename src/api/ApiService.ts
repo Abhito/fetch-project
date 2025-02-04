@@ -30,7 +30,7 @@ class apiService {
   }
 
   async logoutUser() {
-    return await this.httpService.post('/auth/login', {});
+    return await this.httpService.post('/auth/logout', {});
   }
 
   async searchDogs(search: DogSearchInput) {

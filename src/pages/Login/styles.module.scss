@@ -3,26 +3,32 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex: 1;
 
   .loginCard {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     max-width: 400px;
     width: 100%;
-    min-height: 200px;
+    min-height: 300px;
+    height: 40%;
+    text-align: center;
+
+    .signContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
 
     .inputsContainer {
       display: flex;
       flex-direction: column;
       gap: 16px;
-    }
-
-    .loginButton {
-      border-radius: 16px;
-      flex: 0;
     }
   }
 }

@@ -25,7 +25,7 @@ export class HttpService {
   }
 
   addErrorListener(response: (error: AxiosError) => Promise<AxiosError>) {
-    this.api.interceptors.response.use(this.handleResponse, response);
+    this.api.interceptors.response.use(undefined, response);
   }
 
   async get<T>(

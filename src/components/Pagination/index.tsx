@@ -1,5 +1,5 @@
 ﻿import { TablePagination } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
 
 export default function Pagination(props: {
   page: number;
@@ -14,8 +14,8 @@ export default function Pagination(props: {
       page={page}
       slotProps={{
         actions: {
-          previousButtonIcon: { sx: { color: deepOrange['A400'] } },
-          nextButtonIcon: { sx: { color: deepOrange['A400'] } },
+          previousButton: { sx: { color: teal['600'] } },
+          nextButton: { sx: { color: teal['600'] } },
         },
       }}
       rowsPerPageOptions={[]}
