@@ -16,6 +16,7 @@ import styles from './styles.module.scss';
 import { Dog } from '../DogImageItem/DogImageItem.interface.ts';
 import DogImageItem from '../DogImageItem';
 import { useWidth } from '../../pages/Home';
+import { useError } from '../ErrorDisplay/ErrorContext.tsx';
 
 const buttonTheme = createTheme({
   components: {
@@ -44,6 +45,7 @@ export default function MatchButton(props: MatchButtonProps) {
   const width = useWidth();
   const [openModal, setOpenModal] = useState(false);
   const [matchDog, setMatchDog] = useState<Dog | null>(null);
+  const { setErrorMessage } = useError();
 
   const getMatch = useCallback(async () => {
     try {
@@ -53,7 +55,9 @@ export default function MatchButton(props: MatchButtonProps) {
         setMatchDog(dog.data[0]);
         setOpenModal(true);
       }
-    } catch (err) {}
+    } catch (err) {
+      setErrorMessage((err as Error).message);
+    }
   }, [favorites]);
 
   const handleClose = () => setOpenModal(false);

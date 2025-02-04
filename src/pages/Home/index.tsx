@@ -15,6 +15,7 @@ import Masonry from '@mui/lab/Masonry';
 import ImageListHeader from '../../components/ImageListHeader';
 import Pagination from '../../components/Pagination';
 import LogoutHeader from '../../components/LogoutHeader';
+import { useError } from '../../components/ErrorDisplay/ErrorContext.tsx';
 
 type BreakpointOrNull = Breakpoint | null;
 
@@ -38,6 +39,7 @@ export default function Home() {
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const width = useWidth();
+  const { setErrorMessage } = useError();
   const columnMap = { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 };
 
   const getDogs = useCallback(async () => {
@@ -51,15 +53,19 @@ export default function Home() {
       setCount(result.data.total);
       const dogResponse = await ApiService.getDogs(result.data.resultIds);
       setDogs(dogResponse.data);
-    } catch (err) {}
-  }, [page, sort, selectedBreeds]);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
+    }
+  }, [page, sort, selectedBreeds, setErrorMessage]);
 
   const getDogBreeds = useCallback(async () => {
     try {
       const result = await ApiService.getDogBreeds();
       setDogBreeds(result.data);
-    } catch (err) {}
-  }, []);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
+    }
+  }, [setErrorMessage]);
 
   useEffect(() => {
     getDogBreeds();

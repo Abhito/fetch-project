@@ -12,6 +12,7 @@ import { Logout } from '@mui/icons-material';
 import { useCallback } from 'react';
 import { ApiService } from '../../api/ApiService.ts';
 import PetsIcon from '@mui/icons-material/Pets';
+import { useError } from '../ErrorDisplay/ErrorContext.tsx';
 
 const theme = createTheme({
   components: {
@@ -48,9 +49,14 @@ const theme = createTheme({
 
 export default function LogoutHeader() {
   const { user, logout } = useAuth();
+  const { setErrorMessage } = useError();
   const logOutUser = useCallback(async () => {
-    await ApiService.logoutUser();
-    logout();
+    try {
+      await ApiService.logoutUser();
+      logout();
+    } catch (err) {
+      setErrorMessage((err as Error).message);
+    }
   }, [logout]);
 
   return (

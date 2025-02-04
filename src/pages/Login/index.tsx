@@ -14,6 +14,7 @@ import { ApiService } from '../../api/ApiService.ts';
 import { useNavigate } from 'react-router-dom';
 import { grey, teal } from '@mui/material/colors';
 import PetsIcon from '@mui/icons-material/Pets';
+import { useError } from '../../components/ErrorDisplay/ErrorContext.tsx';
 
 const theme = createTheme({
   palette: {
@@ -41,10 +42,7 @@ const theme = createTheme({
 });
 
 const validateEmail = (email: string) => {
-  console.log('hello');
-  const re = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-  console.log(re);
-  return re;
+  return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 };
 
 export default function Login() {
@@ -54,6 +52,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [nameValid, setNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
+  const { setErrorMessage } = useError();
 
   const loginUser = useCallback(async () => {
     let notValid = false;
@@ -62,22 +61,19 @@ export default function Login() {
       notValid = true;
     } else setNameValid(true);
     if (!validateEmail(email)) {
-      console.log('nice');
       setEmailValid(false);
       notValid = true;
     } else setEmailValid(true);
-    console.log('hello');
     if (notValid) return;
     try {
       await ApiService.loginUser({ name, email });
       login({ name, email });
       navigate('/home');
     } catch (e) {
-      console.log(e);
+      setErrorMessage('Login Failed');
     }
-  }, [name, email]);
+  }, [name, email, setErrorMessage]);
 
-  // @ts-ignore
   return (
     <Box className={styles.loginContainer}>
       <ThemeProvider theme={theme}>
@@ -94,6 +90,7 @@ export default function Login() {
               helperText={!nameValid ? 'Name cannot be empty' : ''}
               value={name}
               color='success'
+              type={'text'}
               onChange={e => setName(e.target.value)}
               slotProps={{
                 inputLabel: {
@@ -109,6 +106,7 @@ export default function Login() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               color='success'
+              type={'email'}
               slotProps={{
                 inputLabel: {
                   shrink: true,
