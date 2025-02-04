@@ -16,6 +16,7 @@ export class HttpService {
   }
 
   private handleResponse(response: AxiosResponse): AxiosResponse {
+    //Comment this out if you don't want logs.
     console.info(
       `HTTP Response: ${response.status} ${response.config.method?.toUpperCase()} ${response.config.baseURL}${
         response.config.url
