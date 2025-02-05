@@ -1,58 +1,28 @@
-# React + TypeScript + Vite
+# Paw Search
 
-This template provides a minimal setup to get React working in Vite with HMR and
-some ESLint rules.
+A React-based web application for finding dogs by breed. 
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc)
-  uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (version 18 or higher)
+- Yarn (version 1.22 or higher)
 
-## Expanding the ESLint configuration
+#### Running the web application
 
-If you are developing a production application, we recommend updating the
-configuration to enable type aware lint rules:
+```bash
 
-- Configure the top-level `parserOptions` property like this:
+# Clone this repository
+$ git clone https://github.com/Abhito/fetch-project.git
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+# Access the project folder in your terminal
+$ cd fetch-project
 
-- Replace `tseslint.configs.recommended` to
-  `tseslint.configs.recommendedTypeChecked` or
-  `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install
-  [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and
-  update the config:
+# Install the dependencies
+$ yarn install
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+# Run the application in development mode
+$ yarn dev
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
+# The application will open on the port: 5173 - go to http://localhost:5173/fetch-project/
+
 ```
