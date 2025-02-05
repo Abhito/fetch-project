@@ -17,7 +17,7 @@ function App() {
   return (
     <ErrorProvider>
       <AuthProvider>
-        <Router>
+        <Router basename={'/fetch-project'}>
           <Routes>
             <Route
               path='/home'
@@ -27,8 +27,8 @@ function App() {
                 </AuthGuard>
               }
             />
-            <Route path='/' element={<Navigate to='/home' replace />} />
             <Route path='/login' element={<Login />} />
+            <Route path='*' element={<Navigate to='/home' replace />} />
           </Routes>
         </Router>
         <ErrorDisplay />
